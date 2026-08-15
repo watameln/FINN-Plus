@@ -30,4 +30,6 @@ Mørk modus bruker FINNs verifiserte, semantiske Warp-designtokens. Funksjonen b
 
 FINN+ er tilgjengelig under [MIT-lisensen](LICENSE).
 
+Les [personvernerklæringen](https://watameln.github.io/FINN-Plus/) for informasjon om hvordan utvidelsen behandler opplysninger.
+
 FINN+ er en uavhengig nettleserutvidelse og er ikke tilknyttet, godkjent eller sponset av FINN.no eller Vend.

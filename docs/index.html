@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personvernerklæring for nettleserutvidelsen FINN+.">
+    <title>Personvernerklæring – FINN+</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Arial, Helvetica, sans-serif;
+        --background: #f7f7f8;
+        --surface: #fff;
+        --text: #27272f;
+        --subtle: #5c5c66;
+        --border: #d8d8dc;
+        --link: #06f;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background: #16171a;
+          --surface: #202126;
+          --text: #f2f2f2;
+          --subtle: #c1c2c7;
+          --border: #3b3d44;
+          --link: #65a5ff;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      body { background: var(--background); color: var(--text); line-height: 1.6; margin: 0; }
+      header { background: var(--surface); border-bottom: 1px solid var(--border); }
+      header div, main, footer { margin: 0 auto; max-width: 760px; padding-left: 24px; padding-right: 24px; }
+      header div { align-items: center; display: flex; justify-content: space-between; min-height: 68px; }
+      .brand { font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+      header a { color: var(--subtle); font-size: 14px; }
+      main { padding-bottom: 64px; padding-top: 64px; }
+      h1 { font-size: clamp(34px, 7vw, 52px); letter-spacing: -.04em; line-height: 1.08; margin: 0 0 18px; }
+      h2 { font-size: 22px; letter-spacing: -.02em; margin: 42px 0 10px; }
+      p, li { color: var(--subtle); }
+      .intro { font-size: 19px; margin-bottom: 32px; max-width: 650px; }
+      .notice { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+      a { color: var(--link); }
+      ul { padding-left: 22px; }
+      footer { border-top: 1px solid var(--border); color: var(--subtle); font-size: 14px; padding-bottom: 32px; padding-top: 24px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <span class="brand">FINN+</span>
+        <a href="https://github.com/watameln/FINN-Plus">GitHub</a>
+      </div>
+    </header>
+
+    <main>
+      <h1>Personvernerklæring</h1>
+      <p class="intro">Denne erklæringen beskriver hvordan nettleserutvidelsen FINN+ behandler opplysninger.</p>
+
+      <div class="notice">
+        <strong>Kort fortalt:</strong> FINN+ samler ikke inn, selger eller deler personopplysninger. Utvidelsen behandler innhold lokalt i nettleseren for å utføre funksjonene du slår på.
+      </div>
+
+      <h2>Hvilke opplysninger behandles?</h2>
+      <p>FINN+ leser og endrer innhold på finn.no for å vise mørk modus, skjule utvalgte KI-funksjoner og skjule betalte plasseringer. Behandlingen skjer lokalt i nettleseren. Innholdet sendes ikke til utvikleren eller til en egen server.</p>
+
+      <p>Valgene dine i FINN+ lagres med Chromes synkroniserte lagring. Dette gjelder bare innstillinger som om mørk modus eller andre funksjoner er slått på. Hvis synkronisering er aktivert i Chrome, kan Google synkronisere disse innstillingene mellom enhetene dine i henhold til Googles egne vilkår.</p>
+
+      <h2>Hva samler FINN+ ikke inn?</h2>
+      <ul>
+        <li>Navn, e-postadresse eller kontaktopplysninger</li>
+        <li>Søkehistorikk eller annonser du ser på</li>
+        <li>Meldinger, betalingsopplysninger eller innhold fra FINN-kontoen din</li>
+        <li>Analyse-, sporings- eller reklamedata</li>
+      </ul>
+
+      <h2>Tilganger</h2>
+      <p>Utvidelsen har tilgang til finn.no fordi funksjonene må kunne tilpasse sidene der. Lagringstilgangen brukes bare til å huske innstillingene dine. FINN+ ber ikke om tilgang til andre nettsteder.</p>
+
+      <h2>Lagring og sletting</h2>
+      <p>Innstillingene beholdes til du endrer dem, fjerner utvidelsen eller sletter utvidelsesdata i nettleseren. Utvikleren har ikke tilgang til disse innstillingene og kan derfor heller ikke hente eller slette dem på dine vegne.</p>
+
+      <h2>Endringer</h2>
+      <p>Denne erklæringen oppdateres hvis måten FINN+ behandler opplysninger på endres. Den nyeste versjonen vil alltid ligge på denne siden.</p>
+
+      <h2>Kontakt</h2>
+      <p>Har du spørsmål om personvern i FINN+, kan du <a href="https://github.com/watameln/FINN-Plus/issues/new">opprette en sak på GitHub</a>.</p>
+
+      <p><strong>Sist oppdatert:</strong> 15. august 2026</p>
+      <p>FINN+ er en uavhengig nettleserutvidelse og er ikke tilknyttet, godkjent eller sponset av FINN.no eller Vend.</p>
+    </main>
+
+    <footer>© 2026 FINN+ · Tilgjengelig under MIT-lisensen</footer>
+  </body>
+</html>
