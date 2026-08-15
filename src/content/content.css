@@ -1,0 +1,22 @@
+.finn-plus-navigation-item {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0.5rem;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+}
+
+.finn-plus-navigation-item:hover,
+.finn-plus-navigation-item:focus-visible {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+/* Feature styles are scoped by this attribute. Site-specific mappings will be
+   added only after FINN components are inspected; media must remain untouched. */
+:root[data-finn-plus-theme="dark"] {
+  color-scheme: dark;
+}

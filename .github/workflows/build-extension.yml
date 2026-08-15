@@ -1,0 +1,45 @@
+name: Build Chrome extension
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Validate and package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Validate manifest
+        shell: bash
+        run: |
+          jq --exit-status '.manifest_version == 3' manifest.json >/dev/null
+          jq --exit-status '.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$")' manifest.json >/dev/null
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: find src settings -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Package extension
+        shell: bash
+        run: |
+          mkdir -p dist/package
+          cp manifest.json README.md dist/package/
+          cp -R src settings dist/package/
+          cd dist/package
+          zip -r ../finn-plus-chrome.zip .
+
+      - name: Upload Chrome extension
+        uses: actions/upload-artifact@v7
+        with:
+          name: finn-plus-chrome-${{ github.sha }}
+          path: dist/finn-plus-chrome.zip
+          if-no-files-found: error
+          retention-days: 30

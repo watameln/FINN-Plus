@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FINN+ Settings</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="brand" aria-label="FINN+">FINN<span>+</span></div>
+      <div>
+        <h1>Settings</h1>
+        <p>Make FINN feel like yours. Every feature can be switched off independently.</p>
+      </div>
+    </header>
+
+    <main>
+      <form id="settings-form">
+        <section class="settings-section" aria-labelledby="appearance-heading">
+          <div class="section-copy">
+            <p class="eyebrow">Appearance</p>
+            <h2 id="appearance-heading">Dark mode</h2>
+            <p>Enables the theme framework. FINN component colors will be added after their selectors have been inspected.</p>
+          </div>
+          <div class="controls">
+            <label class="setting-row">
+              <span><strong>Enable dark mode</strong><small>Use FINN+'s scoped dark theme.</small></span>
+              <input type="checkbox" name="darkMode" role="switch">
+            </label>
+            <label class="setting-row nested" data-requires="darkMode">
+              <span><strong>Follow system theme</strong><small>Switch between light and dark with your device.</small></span>
+              <input type="checkbox" name="darkModeFollowSystem" role="switch">
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-section" aria-labelledby="cleanup-heading">
+          <div class="section-copy">
+            <p class="eyebrow">Cleanup</p>
+            <h2 id="cleanup-heading">Remove AI</h2>
+            <p>Controls the removal framework. No FINN elements are hidden until stable selectors have been verified.</p>
+          </div>
+          <div class="controls">
+            <label class="setting-row">
+              <span><strong>Enable Remove AI</strong><small>Remove mapped AI prompts, recommendations, and promotions.</small></span>
+              <input type="checkbox" name="removeAi" role="switch">
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-section" aria-labelledby="integration-heading">
+          <div class="section-copy">
+            <p class="eyebrow">Integration</p>
+            <h2 id="integration-heading">FINN navigation</h2>
+            <p>Keep the settings entry close at hand while browsing FINN.</p>
+          </div>
+          <div class="controls">
+            <label class="setting-row">
+              <span><strong>Show FINN+ in top navigation</strong><small>Opens this settings page from FINN.</small></span>
+              <input type="checkbox" name="showNavigationItem" role="switch">
+            </label>
+          </div>
+        </section>
+      </form>
+
+      <p id="save-status" class="save-status" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="../src/shared/settings.js"></script>
+    <script src="settings.js"></script>
+  </body>
+</html>
