@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist/package
-          cp manifest.json README.md dist/package/
+          cp manifest.json README.md LICENSE dist/package/
           cp -R src settings dist/package/
           cd dist/package
           zip -r ../finn-plus-chrome.zip .

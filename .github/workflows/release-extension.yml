@@ -1,0 +1,83 @@
+name: Release Chrome extension
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - manifest.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-chrome-extension
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Validate, package, and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Read and validate version
+        id: version
+        shell: bash
+        run: |
+          jq --exit-status '.manifest_version == 3' manifest.json >/dev/null
+          jq --exit-status '.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$")' manifest.json >/dev/null
+          version="$(jq --raw-output '.version' manifest.json)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Check for existing release
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check JavaScript syntax
+        if: steps.existing.outputs.found == 'false'
+        shell: bash
+        run: find src settings -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Package extension
+        if: steps.existing.outputs.found == 'false'
+        shell: bash
+        run: |
+          mkdir -p dist/package
+          cp manifest.json README.md LICENSE dist/package/
+          cp -R src settings dist/package/
+          cd dist/package
+          zip -r "../finn-plus-${{ steps.version.outputs.version }}-chrome.zip" .
+
+      - name: Create GitHub release
+        if: steps.existing.outputs.found == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          gh release create "$TAG" \
+            "dist/finn-plus-$VERSION-chrome.zip" \
+            --target "$GITHUB_SHA" \
+            --title "FINN+ $TAG" \
+            --generate-notes
+
+      - name: Report existing release
+        if: steps.existing.outputs.found == 'true'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: echo "Release $TAG already exists; nothing to publish."

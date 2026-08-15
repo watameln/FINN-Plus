@@ -13,6 +13,8 @@ FINN+ er en modulær Manifest V3-nettleserutvidelse med valgfrie forbedringer av
 
 Hver push og pull request kjører GitHub Actions-arbeidsflyten **Build Chrome extension**. Etter et vellykket bygg opprettes artefakten `finn-plus-chrome-<commit>`, som inneholder den pakkede ZIP-filen for utvidelsen. Arbeidsflyten kan også startes manuelt fra Actions-fanen.
 
+Når versjonen i `manifest.json` endres på `main`, oppretter arbeidsflyten **Release Chrome extension** automatisk en GitHub-utgivelse med taggen `v<versjon>`, genererte versjonsnotater og en versjonert ZIP-fil. En eksisterende utgivelse med samme versjon opprettes ikke på nytt.
+
 ## Arkitektur
 
 - `src/shared/settings.js` inneholder typede standardinnstillinger og synkronisert lagring.
