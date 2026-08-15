@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "FINN+",
   "description": "Optional cleanup, appearance, and quality-of-life improvements for FINN.no.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "permissions": [
     "storage"
   ],
