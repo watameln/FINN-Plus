@@ -1,2 +1,2 @@
-# FINN-
+# FINN Plus
 Finn.no Plus
