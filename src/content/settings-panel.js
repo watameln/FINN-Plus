@@ -37,20 +37,20 @@
       <div class="backdrop">
         <main aria-labelledby="finn-plus-panel-title">
           <div class="heading">
-            <div><p class="eyebrow">FINN+</p><h1 id="finn-plus-panel-title">Innstillinger</h1><p>Tilpass FINN. Hver funksjon kan slås av og på separat.</p></div>
+            <div><p class="eyebrow">FINN+</p><h1 id="finn-plus-panel-title">Innstillinger</h1><p>Velg hvilke funksjoner du vil bruke på FINN.</p></div>
             <button class="close" type="button" aria-label="Lukk FINN+ innstillinger">Lukk</button>
           </div>
           <form>
-            <section><div class="copy"><p class="eyebrow">Utseende</p><h2>Mørk modus</h2><p>Bruker FINNs semantiske designtokens og lar merkevare- og statusfarger være uendret.</p></div><div class="controls">
-              <label><span><strong>Aktiver mørk modus</strong><small>Bruk FINN+ sitt mørke tema.</small></span><input type="checkbox" name="darkMode" role="switch"></label>
-              <label class="nested" data-requires="darkMode"><span><strong>Følg systemtema</strong><small>Bytt tema sammen med enheten.</small></span><input type="checkbox" name="darkModeFollowSystem" role="switch"></label>
+            <section><div class="copy"><p class="eyebrow">Utseende</p><h2>Mørk modus</h2><p>Gjør FINN mer behagelig å bruke når det er mørkt.</p></div><div class="controls">
+              <label><span><strong>Slå på mørk modus</strong><small>Bruk et mørkt tema på FINN.</small></span><input type="checkbox" name="darkMode" role="switch"></label>
+              <label class="nested" data-requires="darkMode"><span><strong>Følg systeminnstillingene</strong><small>Bruk samme tema som enheten din.</small></span><input type="checkbox" name="darkModeFollowSystem" role="switch"></label>
             </div></section>
-            <section><div class="copy"><p class="eyebrow">Opprydding</p><h2>Fjern KI</h2><p>Skjuler kartlagte KI-elementer når stabile komponenter er verifisert.</p></div><div class="controls">
-              <label><span><strong>Aktiver Fjern KI</strong><small>Fjern kartlagte KI-spørsmål, anbefalinger og kampanjer.</small></span><input type="checkbox" name="removeAi" role="switch"></label>
-              <label><span><strong>Skjul reklame</strong><small>Fjern sponsede produktkort fra søkeresultater.</small></span><input type="checkbox" name="hideAds" role="switch"></label>
+            <section><div class="copy"><p class="eyebrow">Opprydding</p><h2>Fjern KI</h2><p>Skjul KI-funksjoner du ikke ønsker å se.</p></div><div class="controls">
+              <label><span><strong>Skjul KI-innhold</strong><small>Skjul KI-forslag, anbefalinger og kampanjer.</small></span><input type="checkbox" name="removeAi" role="switch"></label>
+              <label><span><strong>Skjul reklame</strong><small>Skjul betalte plasseringer i søkeresultatene.</small></span><input type="checkbox" name="hideAds" role="switch"></label>
             </div></section>
-            <section><div class="copy"><p class="eyebrow">Integrasjon</p><h2>FINN-toppmeny</h2><p>Vis FINN+ sammen med de andre handlingene i toppmenyen.</p></div><div class="controls">
-              <label><span><strong>Vis FINN+ i toppmenyen</strong><small>Åpner dette panelet uten å forlate FINN.</small></span><input type="checkbox" name="showNavigationItem" role="switch"></label>
+            <section><div class="copy"><p class="eyebrow">Tilgang</p><h2>Toppmeny</h2><p>Legg FINN+ ved siden av de andre valgene i toppmenyen.</p></div><div class="controls">
+              <label><span><strong>Vis FINN+ i toppmenyen</strong><small>Åpne innstillingene direkte fra toppmenyen.</small></span><input type="checkbox" name="showNavigationItem" role="switch"></label>
             </div></section>
           </form>
         </main>
