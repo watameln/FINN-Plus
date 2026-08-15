@@ -3,9 +3,15 @@
 
   const form = document.getElementById("settings-form");
   const status = document.getElementById("save-status");
+  const systemTheme = matchMedia("(prefers-color-scheme: dark)");
   let statusTimer;
 
   function render(settings) {
+    const useDarkTheme = settings.darkMode && (
+      !settings.darkModeFollowSystem || systemTheme.matches
+    );
+    document.documentElement.dataset.theme = useDarkTheme ? "dark" : "light";
+
     for (const [key, value] of Object.entries(settings)) {
       const input = form.elements.namedItem(key);
       if (input instanceof HTMLInputElement) input.checked = value;
@@ -44,6 +50,9 @@
   try {
     render(await globalThis.FinnPlus.settings.get());
     globalThis.FinnPlus.settings.subscribe(render);
+    systemTheme.addEventListener("change", async () => {
+      render(await globalThis.FinnPlus.settings.get());
+    });
   } catch (error) {
     console.error("FINN+ could not load settings", error);
     showStatus("Could not load settings");

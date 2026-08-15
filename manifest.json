@@ -31,6 +31,8 @@
         "src/content/feature-manager.js",
         "src/content/features/dark-mode.js",
         "src/content/features/remove-ai.js",
+        "src/content/features/hide-ads.js",
+        "src/content/settings-panel.js",
         "src/content/navigation.js",
         "src/content/index.js"
       ],

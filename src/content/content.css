@@ -15,8 +15,111 @@
   background: color-mix(in srgb, currentColor 10%, transparent);
 }
 
-/* Feature styles are scoped by this attribute. Site-specific mappings will be
-   added only after FINN components are inspected; media must remain untouched. */
 :root[data-finn-plus-theme="dark"] {
   color-scheme: dark;
+  --w-s-color-background: #18191d;
+  --w-s-color-background-default: #18191d;
+  --w-s-color-background-subtle: #222329;
+  --w-s-color-background-subtle-hover: #2a2c33;
+  --w-s-color-background-subtle-active: #32343c;
+  --w-s-color-background-secondary: #2b2d34;
+  --w-s-color-background-secondary-hover: #343740;
+  --w-s-color-background-secondary-active: #3c3f49;
+  --w-s-color-background-hover: #292b31;
+  --w-s-color-background-active: #32343a;
+  --w-s-color-background-disabled: #25262b;
+  --w-s-color-background-disabled-subtle: #202126;
+  --w-s-color-background-selected: #263747;
+  --w-s-color-background-selected-hover: #2d4357;
+  --w-s-color-background-selected-active: #34506a;
+  --w-s-color-background-primary-subtle: #173653;
+  --w-s-color-background-primary-subtle-hover: #204665;
+  --w-s-color-background-primary-subtle-active: #285575;
+  --w-s-color-background-info-subtle: #172f42;
+  --w-s-color-background-info-subtle-hover: #1d3c54;
+  --w-s-color-background-info-subtle-active: #244a67;
+  --w-s-color-surface-sunken: #111216;
+  --w-s-color-surface-elevated-100: #202126;
+  --w-s-color-surface-elevated-100-hover: #292b31;
+  --w-s-color-surface-elevated-100-active: #31333a;
+  --w-s-color-surface-elevated-200: #27292f;
+  --w-s-color-surface-elevated-200-hover: #30323a;
+  --w-s-color-surface-elevated-200-active: #393c45;
+  --w-s-color-surface-elevated-300: #30323a;
+  --w-s-color-surface-elevated-300-hover: #393c45;
+  --w-s-color-surface-elevated-300-active: #424650;
+  --w-s-color-border: #3b3d45;
+  --w-s-color-border-hover: #555862;
+  --w-s-color-border-active: #6a6e79;
+  --w-s-color-border-strong: #777b86;
+  --w-s-color-border-strong-hover: #9296a0;
+  --w-s-color-border-disabled: #303138;
+  --w-s-color-text: #f2f2f4;
+  --w-s-color-text-subtle: #b9bbc3;
+  --w-s-color-text-link: #f2f2f4;
+  --w-s-color-text-placeholder: #90939d;
+  --w-s-color-text-disabled: #6e717a;
+  --w-s-color-icon: #e7e8eb;
+  --w-s-color-icon-default: #e7e8eb;
+  --w-s-color-icon-secondary: #d0d1d6;
+  --w-s-color-icon-secondary-hover: #ffffff;
+  --w-s-color-icon-secondary-active: #ffffff;
+  --w-s-color-icon-subtle: #b9bbc3;
+  --w-s-color-icon-hover: #ffffff;
+  --w-s-color-icon-active: #ffffff;
+  --w-s-color-icon-disabled: #6e717a;
+  --w-color-pill-suggestion-background: #2b2d34;
+  --w-color-pill-suggestion-background-hover: #343740;
+  --w-color-pill-suggestion-background-active: #3c3f49;
+}
+
+/* FINN's semantic tokens cover application surfaces, including open shadow
+   roots. Brand, feedback/status tokens, and all media remain unchanged. */
+:root[data-finn-plus-theme="dark"] body {
+  background-color: var(--w-s-color-background);
+  color: var(--w-s-color-text);
+}
+
+/* FINN's light badge palettes require their original dark foreground. Price
+   and disabled badges already use dark-compatible semantic foregrounds. */
+:root[data-finn-plus-theme="dark"] .w-badge:not(.w-badge--price):not(.w-badge--disabled) {
+  --color: #303038;
+}
+
+:root[data-finn-plus-theme="dark"] [data-finn-plus-light-badge] {
+  --color: #303038;
+  color: #303038 !important;
+}
+
+:root[data-finn-plus-theme="dark"] [data-finn-plus-light-badge] * {
+  color: currentColor !important;
+}
+
+/* Some FINN surfaces compose badges from Warp utility classes instead of the
+   w-badge component, while using the same light badge background tokens. */
+:root[data-finn-plus-theme="dark"] [class*="--w-color-badge-"][class~="s-text"] {
+  color: #303038 !important;
+}
+
+:root[data-finn-plus-theme="dark"] w-badge[variant="warning"] {
+  --color: #303038;
+  --w-s-color-text: #303038;
+  color: #303038 !important;
+}
+
+/* Saved-search groups add a light gradient above their "show more" action. */
+:root[data-finn-plus-theme="dark"] .notifications-showall-btn.use-fade-effect::before,
+:root[data-finn-plus-theme="dark"] .notifications-showall-btn.use-fade-effect::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--w-s-color-background) 78%
+  ) !important;
+}
+
+/* Messaging still uses Warp's legacy light-blue utility on selected threads
+   and sent bubbles instead of the semantic primary-subtle class. */
+:root[data-finn-plus-theme="dark"] .bg-blue-100,
+:root[data-finn-plus-theme="dark"] [class*="--w-color-blue-100"] {
+  background-color: var(--w-s-color-background-primary-subtle) !important;
 }

@@ -17,8 +17,8 @@ Every push and pull request runs the **Build Chrome extension** GitHub Actions w
 
 - `src/shared/settings.js` owns typed defaults and synchronized persistence.
 - `src/content/feature-manager.js` manages independent feature lifecycles.
-- `src/content/features/` contains one module per feature.
+- `src/content/features/` contains one independently toggleable module per feature.
 - `src/content/navigation.js` owns the FINN navigation integration.
 - `settings/` contains the extension settings page.
 
-Dark Mode and Remove AI currently provide lifecycle frameworks only. Site-specific selectors and styles must be added after FINN components are inspected. Remove AI deliberately has no broad MutationObserver fallback, and Dark Mode never uses whole-page filters or changes media.
+Dark Mode uses FINN's inspected semantic Warp design tokens and never uses whole-page filters or changes media. Remove AI remains a lifecycle framework until individual AI components have been inspected; it deliberately has no broad MutationObserver fallback.

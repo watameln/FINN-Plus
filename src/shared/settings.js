@@ -5,6 +5,7 @@
     darkMode: false,
     darkModeFollowSystem: true,
     removeAi: false,
+    hideAds: false,
     showNavigationItem: true
   });
 

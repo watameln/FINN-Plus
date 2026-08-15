@@ -7,21 +7,28 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <header class="page-header">
-      <div class="brand" aria-label="FINN+">FINN<span>+</span></div>
-      <div>
-        <h1>Settings</h1>
-        <p>Make FINN feel like yours. Every feature can be switched off independently.</p>
+    <header class="site-header">
+      <div class="topbar">
+        <div class="finn-logo" aria-label="FINN">
+          <span class="finn-logo-mark"></span><span class="finn-logo-word">FINN</span>
+        </div>
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <strong>FINN+</strong>
       </div>
     </header>
 
     <main>
+      <div class="page-intro">
+        <p class="eyebrow">Browser extension</p>
+        <h1>FINN+ settings</h1>
+        <p>Make FINN feel like yours. Every feature can be switched off independently.</p>
+      </div>
       <form id="settings-form">
         <section class="settings-section" aria-labelledby="appearance-heading">
           <div class="section-copy">
             <p class="eyebrow">Appearance</p>
             <h2 id="appearance-heading">Dark mode</h2>
-            <p>Enables the theme framework. FINN component colors will be added after their selectors have been inspected.</p>
+            <p>Applies a dark palette through FINN's semantic Warp design tokens while preserving brand and status colors.</p>
           </div>
           <div class="controls">
             <label class="setting-row">
@@ -45,6 +52,10 @@
             <label class="setting-row">
               <span><strong>Enable Remove AI</strong><small>Remove mapped AI prompts, recommendations, and promotions.</small></span>
               <input type="checkbox" name="removeAi" role="switch">
+            </label>
+            <label class="setting-row">
+              <span><strong>Hide advertising</strong><small>Remove sponsored product cards from search results.</small></span>
+              <input type="checkbox" name="hideAds" role="switch">
             </label>
           </div>
         </section>
