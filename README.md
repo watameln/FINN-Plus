@@ -23,3 +23,9 @@ Hver push og pull request kjører GitHub Actions-arbeidsflyten **Build Chrome ex
 - `settings/` inneholder den separate innstillingssiden for utvidelsen.
 
 Mørk modus bruker FINNs verifiserte, semantiske Warp-designtokens. Funksjonen bruker aldri filtre på hele siden og endrer ikke bilder, videoer, kart eller annet medieinnhold. Fjern KI og Skjul reklame bruker bare kartlagte komponenter og avgrensede observatører, slik at vanlige annonser og søkeresultater ikke påvirkes.
+
+## Lisens
+
+FINN+ er tilgjengelig under [MIT-lisensen](LICENSE).
+
+FINN+ er en uavhengig nettleserutvidelse og er ikke tilknyttet, godkjent eller sponset av FINN.no eller Vend.
