@@ -1,6 +1,7 @@
 (function initialiseSettingsPanel(global) {
   "use strict";
 
+  const extensionApi = global.browser ?? global.chrome;
   const HOST_ID = "finn-plus-settings-panel";
   const OPEN_SETTINGS_HASH = "#finn-plus-settings";
   let host;
@@ -105,7 +106,7 @@
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && host && !host.hidden) close();
   });
-  chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  extensionApi.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message?.type !== "FINN_PLUS_OPEN_SETTINGS") return;
 
     open().then(

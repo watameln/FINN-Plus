@@ -1,6 +1,7 @@
 (function initialiseSettings(global) {
   "use strict";
 
+  const extensionApi = global.browser ?? global.chrome;
   const DEFAULTS = Object.freeze({
     darkMode: true, // whole point is to have dark mode enabled by default
     darkModeFollowSystem: false, // shouldnt be enabled by default, as it would override the darkMode setting if the user has explicitly set system dark mode off
@@ -24,7 +25,7 @@
   }
 
   async function get() {
-    return normalise(await chrome.storage.sync.get(DEFAULTS));
+    return normalise(await extensionApi.storage.sync.get(DEFAULTS));
   }
 
   async function set(changes) {
@@ -36,7 +37,7 @@
       }
     }
 
-    await chrome.storage.sync.set(knownChanges);
+    await extensionApi.storage.sync.set(knownChanges);
     return get();
   }
 
@@ -46,8 +47,8 @@
       get().then(listener).catch(console.error);
     };
 
-    chrome.storage.onChanged.addListener(handleChange);
-    return () => chrome.storage.onChanged.removeListener(handleChange);
+    extensionApi.storage.onChanged.addListener(handleChange);
+    return () => extensionApi.storage.onChanged.removeListener(handleChange);
   }
 
   global.FinnPlus = global.FinnPlus || {};

@@ -1,4 +1,4 @@
-name: Build Chrome extension
+name: Build browser extension
 
 on:
   push:
@@ -17,11 +17,19 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
       - name: Validate manifest
         shell: bash
         run: |
           jq --exit-status '.manifest_version == 3' manifest.json >/dev/null
           jq --exit-status '.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$")' manifest.json >/dev/null
+          jq --exit-status '.background.service_worker == "src/background.js"' manifest.json >/dev/null
+          jq --exit-status '.background.scripts == ["src/background.js"]' manifest.json >/dev/null
+          jq --exit-status '.browser_specific_settings.gecko.id | length > 0' manifest.json >/dev/null
 
       - name: Check JavaScript syntax
         shell: bash
@@ -34,12 +42,15 @@ jobs:
           cp manifest.json README.md LICENSE dist/package/
           cp -R src dist/package/
           cd dist/package
-          zip -r ../finn-plus-chrome.zip .
+          zip -r ../finn-plus.zip .
 
-      - name: Upload Chrome extension
+      - name: Validate Firefox extension
+        run: npx --yes web-ext@10.6.0 lint --source-dir dist/package
+
+      - name: Upload browser extension
         uses: actions/upload-artifact@v7
         with:
-          name: finn-plus-chrome-${{ github.sha }}
-          path: dist/finn-plus-chrome.zip
+          name: finn-plus-${{ github.sha }}
+          path: dist/finn-plus.zip
           if-no-files-found: error
           retention-days: 30

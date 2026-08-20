@@ -1,4 +1,4 @@
-name: Release Chrome extension
+name: Release browser extension
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: release-chrome-extension
+  group: release-browser-extension
   cancel-in-progress: false
 
 jobs:
@@ -24,12 +24,20 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
       - name: Read and validate version
         id: version
         shell: bash
         run: |
           jq --exit-status '.manifest_version == 3' manifest.json >/dev/null
           jq --exit-status '.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$")' manifest.json >/dev/null
+          jq --exit-status '.background.service_worker == "src/background.js"' manifest.json >/dev/null
+          jq --exit-status '.background.scripts == ["src/background.js"]' manifest.json >/dev/null
+          jq --exit-status '.browser_specific_settings.gecko.id | length > 0' manifest.json >/dev/null
           version="$(jq --raw-output '.version' manifest.json)"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=v$version" >> "$GITHUB_OUTPUT"
@@ -60,7 +68,11 @@ jobs:
           cp manifest.json README.md LICENSE dist/package/
           cp -R src dist/package/
           cd dist/package
-          zip -r "../finn-plus-${{ steps.version.outputs.version }}-chrome.zip" .
+          zip -r "../finn-plus-${{ steps.version.outputs.version }}.zip" .
+
+      - name: Validate Firefox extension
+        if: steps.existing.outputs.found == 'false'
+        run: npx --yes web-ext@10.6.0 lint --source-dir dist/package
 
       - name: Create GitHub release
         if: steps.existing.outputs.found == 'false'
@@ -71,7 +83,7 @@ jobs:
         shell: bash
         run: |
           gh release create "$TAG" \
-            "dist/finn-plus-$VERSION-chrome.zip" \
+            "dist/finn-plus-$VERSION.zip" \
             --target "$GITHUB_SHA" \
             --title "FINN+ $TAG" \
             --generate-notes

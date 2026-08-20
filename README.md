@@ -1,19 +1,30 @@
 # FINN+
 
-FINN+ er en modulær Manifest V3-nettleserutvidelse med valgfrie forbedringer av utseende, opprydding og brukervennlighet på FINN.no.
+FINN+ er en modulær Manifest V3-nettleserutvidelse for Chrome/Chromium og Firefox for datamaskiner, med valgfrie forbedringer av utseende, opprydding og brukervennlighet på FINN.no.
 
 ## Last inn lokalt
+
+### Chrome og Chromium
 
 1. Åpne `chrome://extensions` i Chrome eller en annen Chromium-basert nettleser.
 2. Slå på **Utviklermodus**.
 3. Velg **Last inn upakket**, og velg denne mappen.
 4. Bruk FINN+-knappen i toppmenyen på FINN eller utvidelsesikonet i nettleseren for å åpne det samme innstillingspanelet.
 
+### Firefox for datamaskiner
+
+1. Åpne `about:debugging#/runtime/this-firefox`.
+2. Velg **Last inn midlertidig tillegg**.
+3. Velg `manifest.json` i denne mappen.
+4. Bruk FINN+-knappen i toppmenyen på FINN eller utvidelsesikonet i nettleseren for å åpne innstillingspanelet.
+
+Et midlertidig Firefox-tillegg fjernes når Firefox avsluttes. Permanent installasjon krever at pakken signeres av Mozilla, vanligvis ved publisering på [Firefox Add-ons](https://addons.mozilla.org/developers/).
+
 ## Automatiske bygg
 
-Hver push og pull request kjører GitHub Actions-arbeidsflyten **Build Chrome extension**. Etter et vellykket bygg opprettes artefakten `finn-plus-chrome-<commit>`, som inneholder den pakkede ZIP-filen for utvidelsen. Arbeidsflyten kan også startes manuelt fra Actions-fanen.
+Hver push og pull request kjører GitHub Actions-arbeidsflyten **Build browser extension**. Etter et vellykket bygg opprettes artefakten `finn-plus-<commit>`, som inneholder én ZIP-pakke for både Chrome/Chromium og Firefox. Arbeidsflyten kan også startes manuelt fra Actions-fanen.
 
-Når versjonen i `manifest.json` endres på `main`, oppretter arbeidsflyten **Release Chrome extension** automatisk en GitHub-utgivelse med taggen `v<versjon>`, genererte versjonsnotater og en versjonert ZIP-fil. En eksisterende utgivelse med samme versjon opprettes ikke på nytt.
+Når versjonen i `manifest.json` endres på `main`, oppretter arbeidsflyten **Release browser extension** automatisk en GitHub-utgivelse med taggen `v<versjon>`, genererte versjonsnotater og en versjonert ZIP-fil. En eksisterende utgivelse med samme versjon opprettes ikke på nytt. Firefox-pakken må fortsatt sendes til Mozilla for signering før permanent installasjon.
 
 ## Arkitektur
 
