@@ -2,8 +2,8 @@
   "use strict";
 
   const DEFAULTS = Object.freeze({
-    darkMode: false,
-    darkModeFollowSystem: true,
+    darkMode: true, // whole point is to have dark mode enabled by default
+    darkModeFollowSystem: false, // shouldnt be enabled by default, as it would override the darkMode setting if the user has explicitly set system dark mode off
     removeAi: false,
     hideAds: false,
     showNavigationItem: true

@@ -2,6 +2,7 @@
   "use strict";
 
   const HOST_ID = "finn-plus-settings-panel";
+  const OPEN_SETTINGS_HASH = "#finn-plus-settings";
   let host;
   let shadowRoot;
 
@@ -80,6 +81,12 @@
   }
 
   async function open() {
+    if (!document.body) {
+      await new Promise((resolve) => {
+        document.addEventListener("DOMContentLoaded", resolve, { once: true });
+      });
+    }
+
     create();
     render(await global.FinnPlus.settings.get());
     host.hidden = false;
@@ -98,6 +105,27 @@
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && host && !host.hidden) close();
   });
+  chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+    if (message?.type !== "FINN_PLUS_OPEN_SETTINGS") return;
+
+    open().then(
+      () => sendResponse({ opened: true }),
+      (error) => {
+        console.error("FINN+ could not open settings", error);
+        sendResponse({ opened: false });
+      }
+    );
+    return true;
+  });
   global.FinnPlus.settings.subscribe(render);
   global.FinnPlus.settingsPanel = { open, close };
+
+  if (global.location.hash === OPEN_SETTINGS_HASH) {
+    global.history.replaceState(
+      global.history.state,
+      "",
+      `${global.location.pathname}${global.location.search}`
+    );
+    open().catch((error) => console.error("FINN+ could not open settings", error));
+  }
 })(globalThis);

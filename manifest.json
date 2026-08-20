@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "FINN+",
   "description": "Optional cleanup, appearance, and quality-of-life improvements for FINN.no.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "permissions": [
     "storage"
   ],
@@ -13,7 +13,6 @@
   "background": {
     "service_worker": "src/background.js"
   },
-  "options_page": "settings/index.html",
   "action": {
     "default_title": "Open FINN+ settings"
   },
