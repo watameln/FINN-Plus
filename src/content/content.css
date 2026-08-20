@@ -110,11 +110,9 @@
 /* Saved-search groups add a light gradient above their "show more" action. */
 :root[data-finn-plus-theme="dark"] .notifications-showall-btn.use-fade-effect::before,
 :root[data-finn-plus-theme="dark"] .notifications-showall-btn.use-fade-effect::after {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    var(--w-s-color-background) 78%
-  ) !important;
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      var(--w-s-color-background) 78%) !important;
 }
 
 /* Messaging still uses Warp's legacy light-blue utility on selected threads
