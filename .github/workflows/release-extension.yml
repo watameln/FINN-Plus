@@ -1,4 +1,4 @@
-name: Release browser extension
+name: Release browser extensions
 
 on:
   push:
@@ -6,13 +6,14 @@ on:
       - main
     paths:
       - manifest.json
+      - manifest.firefox.json
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: release-browser-extension
+  group: release-browser-extensions
   cancel-in-progress: false
 
 jobs:
@@ -29,15 +30,28 @@ jobs:
         with:
           node-version: 24
 
-      - name: Read and validate version
+      - name: Read and validate versions
         id: version
         shell: bash
         run: |
           jq --exit-status '.manifest_version == 3' manifest.json >/dev/null
           jq --exit-status '.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$")' manifest.json >/dev/null
           jq --exit-status '.background.service_worker == "src/background.js"' manifest.json >/dev/null
-          jq --exit-status '.background.scripts == ["src/background.js"]' manifest.json >/dev/null
-          jq --exit-status '.browser_specific_settings.gecko.id | length > 0' manifest.json >/dev/null
+          jq --exit-status '.background | has("scripts") | not' manifest.json >/dev/null
+          jq --exit-status 'has("browser_specific_settings") | not' manifest.json >/dev/null
+
+          jq --exit-status '.manifest_version == 3' manifest.firefox.json >/dev/null
+          jq --exit-status '.version | test("^[0-9]+\\.[0-9]+\\.[0-9]+$")' manifest.firefox.json >/dev/null
+          jq --exit-status '.background.scripts == ["src/background.js"]' manifest.firefox.json >/dev/null
+          jq --exit-status '.background | has("service_worker") | not' manifest.firefox.json >/dev/null
+          jq --exit-status '.browser_specific_settings.gecko.id | length > 0' manifest.firefox.json >/dev/null
+
+          test "$(jq --raw-output '.version' manifest.json)" = "$(jq --raw-output '.version' manifest.firefox.json)"
+          jq --slurp --exit-status '
+            (.[0] | del(.background, .browser_specific_settings, .minimum_chrome_version)) ==
+            (.[1] | del(.background, .browser_specific_settings, .minimum_chrome_version))
+          ' manifest.json manifest.firefox.json >/dev/null
+
           version="$(jq --raw-output '.version' manifest.json)"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=v$version" >> "$GITHUB_OUTPUT"
@@ -60,19 +74,23 @@ jobs:
         shell: bash
         run: find src -type f -name '*.js' -print0 | xargs -0 -n1 node --check
 
-      - name: Package extension
+      - name: Package extensions
         if: steps.existing.outputs.found == 'false'
         shell: bash
         run: |
-          mkdir -p dist/package
-          cp manifest.json README.md LICENSE dist/package/
-          cp -R src dist/package/
-          cd dist/package
-          zip -r "../finn-plus-${{ steps.version.outputs.version }}.zip" .
+          mkdir -p dist/chrome dist/firefox
+          for browser in chrome firefox; do
+            cp README.md LICENSE "dist/$browser/"
+            cp -R src "dist/$browser/"
+          done
+          cp manifest.json dist/chrome/manifest.json
+          cp manifest.firefox.json dist/firefox/manifest.json
+          (cd dist/chrome && zip -r "../finn-plus-${{ steps.version.outputs.version }}-chrome.zip" .)
+          (cd dist/firefox && zip -r "../finn-plus-${{ steps.version.outputs.version }}-firefox.zip" .)
 
       - name: Validate Firefox extension
         if: steps.existing.outputs.found == 'false'
-        run: npx --yes web-ext@10.6.0 lint --source-dir dist/package
+        run: npx --yes web-ext@10.6.0 lint --source-dir dist/firefox
 
       - name: Create GitHub release
         if: steps.existing.outputs.found == 'false'
@@ -83,7 +101,8 @@ jobs:
         shell: bash
         run: |
           gh release create "$TAG" \
-            "dist/finn-plus-$VERSION.zip" \
+            "dist/finn-plus-$VERSION-chrome.zip" \
+            "dist/finn-plus-$VERSION-firefox.zip" \
             --target "$GITHUB_SHA" \
             --title "FINN+ $TAG" \
             --generate-notes
