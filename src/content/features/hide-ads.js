@@ -4,7 +4,7 @@
   const SPONSORED_AD_SELECTOR = "article.sponsored-product-ad";
   const SEARCH_AD_SELECTOR = "article.sf-search-ad";
   const DISPLAY_AD_SELECTOR = "advt-component";
-  const PAID_PLACEMENT_LABELS = new Set(["betalt plassering", "ukens bolig", "nyttige artikler", "enkel søknad"]);
+  const PAID_PLACEMENT_LABELS = new Set(["betalt plassering", "ukens bolig", "nyttige artikler"]); // make "enkel søknad", jobs etc a different setting in the future
   const hiddenAds = new Map();
   const observers = [];
 
